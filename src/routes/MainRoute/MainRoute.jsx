@@ -6,6 +6,11 @@ import Layout from "@/layouts/Layout/Layout";
 import Product from "@/pages/Product/Product.jsx";
 import ProductDetails from "@/pages/ProductDetails/ProductDetails.jsx";
 import ErrorPage from "@/pages/ErrorPage/ErrorPage.jsx";
+// IMPORT STYLES
+import "@/styles/global.css";
+
+// import contexts
+import ProductProvider from "@/contexts/ProductContext/ProductContext";
 
 // handle router
 const router = createBrowserRouter([
@@ -27,7 +32,11 @@ const router = createBrowserRouter([
 ]);
 
 const MainRoute = () => {
-  return <RouterProvider router={router} />;
+  return (
+  <ProductProvider>
+    <RouterProvider router={router} />
+  </ProductProvider>
+  );
 };
 
 export default MainRoute;

@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+/* HANDLE GLOBAL FONTS */
+@font-face {
+  font-family: "montaserrat";
+  src: url("../assets/fonts/Montserrat/Montserrat-VariableFont_wght.ttf")
+    format("truetype");
+  font-weight: 100 900;
+}
+body {
+  font-family: "montaserrat", sans-serif;
+}
