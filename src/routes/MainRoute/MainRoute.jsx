@@ -1,16 +1,21 @@
 import { RouterProvider } from "react-router-dom";
 import { createBrowserRouter } from "react-router-dom";
+
 // IMPOT LAYOUT HERE
 import Layout from "@/layouts/Layout/Layout";
+
 // IMPORT PAGES HERE
-import Product from "@/pages/Product/Product.jsx";
+import Home from "@/pages/Products/Products";
 import ProductDetails from "@/pages/ProductDetails/ProductDetails.jsx";
 import ErrorPage from "@/pages/ErrorPage/ErrorPage.jsx";
+
 // IMPORT STYLES
 import "@/styles/global.css";
 
-// import contexts
-import ProductProvider from "@/contexts/ProductContext/ProductContext";
+// IMPORT PROVIDERS
+import ProductProvider from "@/contexts/ProductContext/ProductProvider.jsx";
+import SidebarProvider from "@/contexts/SidebarContext/SidebarProvider";
+import CartProvider from "@/contexts/CartContext/CartProvider";
 
 // handle router
 const router = createBrowserRouter([
@@ -21,7 +26,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Product />,
+        element: <Home />,
       },
       {
         path: "/products/:id",
@@ -33,9 +38,13 @@ const router = createBrowserRouter([
 
 const MainRoute = () => {
   return (
-  <ProductProvider>
-    <RouterProvider router={router} />
-  </ProductProvider>
+    <CartProvider>
+      <ProductProvider>
+        <SidebarProvider>
+          <RouterProvider router={router} />
+        </SidebarProvider>
+      </ProductProvider>
+    </CartProvider>
   );
 };
 

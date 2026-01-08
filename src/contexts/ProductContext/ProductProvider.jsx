@@ -1,8 +1,5 @@
-import { createContext, useEffect, useState } from "react";
-
-export const ProductContext = createContext([]);
-
-import React from "react";
+import { useEffect, useState } from "react";
+import { ProductContext } from "./ProductContext";
 
 const ProductProvider = ({ children }) => {
   // handle state to get products
