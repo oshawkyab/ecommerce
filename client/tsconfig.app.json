@@ -4,9 +4,17 @@
     "target": "es2023",
     "lib": ["ES2023", "DOM"],
     "module": "esnext",
-    "types": ["vite/client"],
+    "types": ["vite-plugin-svgr/client", "vite/client"],
     "allowArbitraryExtensions": true,
     "skipLibCheck": true,
+
+    /* Handle Paths Imports */
+    "ignoreDeprecations": "6.0",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@assets/*": ["./src/assets/*"],
+    },
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -22,5 +30,5 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["src", "@/lib/ui"]
 }
