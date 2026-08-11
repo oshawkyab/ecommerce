@@ -1,37 +1,44 @@
-import { Category } from '@/components/eCommerce'
-import { Col, Container, Row } from 'react-bootstrap'
+import { Category } from "@/components/eCommerce";
+import { Loading } from "@/components/feedback";
+import { getCategories } from "@/store/categories/CategoriesSlice";
+import { useAppDispatch, useAppSelector } from "@/store/hook";
+import { useEffect } from "react";
+
 
 const Categories = () => {
-  return (
-    <Container>
-      <Row>
-        <Col xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
-          <Category />
-        </Col>
-        <Col xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
-          <Category />
-        </Col>
-        <Col xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
-          <Category />
-        </Col>
-        <Col xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
-          <Category />
-        </Col>
-        <Col xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
-          <Category />
-        </Col>
-        <Col xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
-          <Category />
-        </Col>
-        <Col xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
-          <Category />
-        </Col>
-        <Col xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
-          <Category />
-        </Col>
-      </Row>
-    </Container>
-  )
-}
+   const { records, loading, error } = useAppSelector(
+      (state) => state.categories
+   );
 
-export default Categories
+   const dispatch = useAppDispatch();
+
+   useEffect(() => {
+      if (!records.length) {
+         dispatch(getCategories());
+      }
+   }, [dispatch, records]);
+
+   return (
+      <section className="container mx-auto">
+         <Loading status={loading} error={error}>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+               {records.length > 0 ? (
+                  // Categories
+                  records.map((category) => (
+                     <Category key={category.id} {...category} />
+                  ))
+               ) : (
+                  // Empty State
+                  <div className="col-span-full flex min-h-62.5 items-center justify-center">
+                     <p className="text-sm font-medium text-gray-400">
+                        There are no categories
+                     </p>
+                  </div>
+               )}
+            </div>
+         </Loading>
+      </section>
+   );
+};
+
+export default Categories;

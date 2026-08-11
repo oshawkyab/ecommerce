@@ -2,9 +2,16 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/inter";
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
+* {
+  font-family: "Montserrat", sans-serif !important;
+}
 .active {
   scale: 1.1;
+}
+a {
+  text-decoration: none !important;
 }
 
 @custom-variant dark (&:is(.dark *));

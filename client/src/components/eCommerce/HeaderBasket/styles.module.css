@@ -1,7 +1,6 @@
 .basketContainer {
   position: relative;
   cursor: pointer;
-  align-self: flex-end;
 }
 
 .basketQuantity {
