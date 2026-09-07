@@ -6,11 +6,14 @@ import "bootstrap/dist/css/bootstrap.min.css"
 // router
 import AppRouter from './routes/AppRouter';
 // store
-import { store } from './store';
-
+import { prisistor, store } from './store';
+import { PersistGate } from 'redux-persist/integration/react'
+import "./services/global-axios"
 
 createRoot(document.getElementById('root')!).render(
    <Provider store={store}>
-      <AppRouter />
+      <PersistGate persistor={prisistor} loading={null}>
+         <AppRouter />
+      </PersistGate>
    </Provider>
 )

@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { HeaderBasket } from "@/components/eCommerce";
+import HeaderWishlist from "@/components/eCommerce/HeaderWishlist/HeaderWishlist";
 
 const Header = () => {
    const [isOpen, setIsOpen] = useState(false);
 
    const navLinkClass = ({ isActive }: { isActive: boolean }) =>
       `rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-300
-      ${
-         isActive
-            ? "bg-gray-900 text-white shadow-md shadow-gray-900/15"
-            : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+      ${isActive
+         ? "bg-gray-900 text-white shadow-md shadow-gray-900/15"
+         : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
       }`;
 
    return (
@@ -28,8 +28,12 @@ const Header = () => {
                </h1>
             </NavLink>
 
-            {/* Basket */}
-            <HeaderBasket />
+            <div className="flex items-center gap-3">
+               {/* wishlist */}
+               <HeaderWishlist />
+               {/* Basket */}
+               <HeaderBasket />
+            </div>
          </div>
 
          {/* Navbar */}
@@ -46,21 +50,18 @@ const Header = () => {
                >
                   <div className="space-y-1.5">
                      <span
-                        className={`block h-0.5 w-5 bg-current transition-all duration-300 ${
-                           isOpen ? "translate-y-2 rotate-45" : ""
-                        }`}
+                        className={`block h-0.5 w-5 bg-current transition-all duration-300 ${isOpen ? "translate-y-2 rotate-45" : ""
+                           }`}
                      />
 
                      <span
-                        className={`block h-0.5 w-5 bg-current transition-all duration-300 ${
-                           isOpen ? "opacity-0" : ""
-                        }`}
+                        className={`block h-0.5 w-5 bg-current transition-all duration-300 ${isOpen ? "opacity-0" : ""
+                           }`}
                      />
 
                      <span
-                        className={`block h-0.5 w-5 bg-current transition-all duration-300 ${
-                           isOpen ? "-translate-y-2 -rotate-45" : ""
-                        }`}
+                        className={`block h-0.5 w-5 bg-current transition-all duration-300 ${isOpen ? "-translate-y-2 -rotate-45" : ""
+                           }`}
                      />
                   </div>
                </button>
@@ -85,10 +86,9 @@ const Header = () => {
                   <NavLink
                      to="/login"
                      className={({ isActive }) =>
-                        `rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-300 ${
-                           isActive
-                              ? "bg-gray-100 text-gray-900"
-                              : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                        `rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-300 ${isActive
+                           ? "bg-gray-100 text-gray-900"
+                           : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                         }`
                      }
                   >
@@ -106,11 +106,10 @@ const Header = () => {
 
             {/* Mobile Navigation */}
             <div
-               className={`overflow-hidden transition-all duration-300 lg:hidden ${
-                  isOpen
-                     ? "max-h-96 border-t border-gray-100"
-                     : "max-h-0"
-               }`}
+               className={`overflow-hidden transition-all duration-300 lg:hidden ${isOpen
+                  ? "max-h-96 border-t border-gray-100"
+                  : "max-h-0"
+                  }`}
             >
                <div className="flex flex-col gap-1 p-3">
 
@@ -144,10 +143,9 @@ const Header = () => {
                      to="/login"
                      onClick={() => setIsOpen(false)}
                      className={({ isActive }) =>
-                        `rounded-xl px-4 py-2.5 text-sm font-semibold transition-all ${
-                           isActive
-                              ? "bg-gray-900 text-white"
-                              : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                        `rounded-xl px-4 py-2.5 text-sm font-semibold transition-all ${isActive
+                           ? "bg-gray-900 text-white"
+                           : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                         }`
                      }
                   >

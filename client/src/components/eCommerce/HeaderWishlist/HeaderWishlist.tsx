@@ -1,16 +1,17 @@
 /* eslint-disable react-hooks/set-state-in-effect */
-import Logo from "@assets/svg/cart.svg?react"
 import styles from "./styles.module.css";
+import Wishlist from "@assets/svg/wishlist.svg?react"
 import { useAppSelector } from "@/store/hook";
-import { getQuantityCartSelector } from "@/store/selectors";
+import { getWishlistItemsNumber } from "@/store/selectors";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const { basketContainer, totalNum, pumpCartQuantity, basketCart } = styles;
+const { container, totalNum, pumpCartQuantity, basketCart } = styles;
 
-const HeaderBasket = () => {
+const HeaderWishlist = () => {
+
    const [isAnimate, setIsAnimate] = useState(false)
-   const totalQuantity = useAppSelector(getQuantityCartSelector);
+   const totalQuantity = useAppSelector(getWishlistItemsNumber);
    const quantityStyle = `${totalNum} ${isAnimate ? pumpCartQuantity : ""}`;
 
    useEffect(() => {
@@ -28,13 +29,13 @@ const HeaderBasket = () => {
    }, [totalQuantity])
 
    return (
-      <Link to={"/cart"} className={basketContainer}>
+      <Link to={"/wishlist"} className={container}>
          <div className={basketCart}>
-            <Logo title="basket icon" />
-            <div className={quantityStyle}>{totalQuantity}</div>
+            <Wishlist className={"w-10 h-10"} title="wishlist icon" />
+            {totalQuantity > 0 && <span className={quantityStyle}>{totalQuantity}</span>}
          </div>
       </Link>
    );
 };
 
-export default HeaderBasket;
+export default HeaderWishlist;

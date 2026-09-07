@@ -11,8 +11,11 @@ export type TError = string | null
 
 export type TProduct = {
    id?: number,
+   max: number;
    title: string;
    price: string;
    cat_category: string;
-   img: string
+   img?: string;
+   quantity?: number;
+   isLiked?: boolean;
 }

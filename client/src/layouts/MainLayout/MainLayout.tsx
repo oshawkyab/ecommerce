@@ -5,14 +5,14 @@ import { Header } from "@/components/shared"
 import { Container } from "react-bootstrap"
 import { Footer } from "@/components/shared"
 
-const { container, wrapper } = styles
+const { container } = styles
 const MainLayout = () => {
    return (
       <Container className={container}>
          {/* header */}
          <Header />
          {/* content */}
-         <main className={wrapper}>
+         <main className="px-6 md:px-8 mb-10">
             <Container>
                <Outlet />
             </Container>

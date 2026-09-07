@@ -9,7 +9,9 @@ import Login from '@/pages/Login'
 import Register from '@/pages/Register'
 import Error from "@/pages/Error"
 import Products from "@/pages/Products"
-
+import Cart from "@/pages/Cart"
+import Wishlist from "@/pages/Wishlist"
+// Handle Routes For App
 const router = createBrowserRouter([
    {
       path: "/",
@@ -19,16 +21,17 @@ const router = createBrowserRouter([
          { index: true, element: <Home /> },
          { path: "/categories", element: <Categories /> },
          { path: "/about-us", element: <AboutUs /> },
+         { path: "/cart", element: <Cart /> },
+         { path: "/wishlist", element: <Wishlist /> },
          {
             path: "/products/:prefix", element: <Products />, loader: ({ params }) => {
                //  Guard product prefix
                if (typeof params.prefix !== "string" || !/[a-zA-Z]/.test(params.prefix)) {
-
+                  // Throw Error
                   throw new Response("Bad request", {
                      statusText: "Category is not found",
                      status: 400
                   })
-
                }
                // Continue reload page ==> true
                return true

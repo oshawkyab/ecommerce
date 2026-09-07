@@ -1,4 +1,4 @@
-import { Product } from "@/components/eCommerce";
+import { GridList, Heading, Product } from "@/components/eCommerce";
 import { Loading } from "@/components/feedback";
 import { useAppDispatch, useAppSelector } from "@/store/hook";
 import {
@@ -14,7 +14,16 @@ const Products = () => {
    const { records, loading, error } = useAppSelector(
       (state) => state.products
    );
+   const cartItems = useAppSelector((state) => state.cart?.items ?? {});
+   const wishlistItemsIds = useAppSelector((state) => state.wishlist.itemsId)
 
+
+   const productsFullInfo = records.map((el) => ({
+      ...el,
+      quantity: el.id !== undefined ? (cartItems[el.id] ?? 0) : 0,
+      isLiked: el.id !== undefined && wishlistItemsIds.includes(el.id),
+   }));
+   
    const dispatch = useAppDispatch();
 
    useEffect(() => {
@@ -30,31 +39,11 @@ const Products = () => {
    return (
       <section className="container mx-auto px-4">
          <Loading status={loading} error={error}>
-            <div className="grid grid-cols-2 py-4 md:grid-cols-3 lg:grid-cols-4">
-               {
-                  records.length > 0 ? (
-                     // Products
-                     records.map((record) => (
-                        <Product key={record.id} {...record} />
-                     ))
-                  ) : (
-                     // Empty State
-                     <div className="col-span-full flex min-h-75 flex-col items-center justify-center">
-                        <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
-                           <span className="text-2xl">🛍️</span>
-                        </div>
-
-                        <h2 className="text-lg font-semibold text-gray-800">
-                           No products found
-                        </h2>
-
-                        <p className="mt-1 text-sm text-gray-400">
-                           There are no products in "{prefix}" category.
-                        </p>
-                     </div>
-                  )
-               }
-            </div>
+            <Heading><span className="uppercase">{prefix} </span> Products</Heading>
+            <GridList
+               records={productsFullInfo}
+               renderItem={(record) => <Product key={record.id} {...record} />}
+            />
          </Loading>
       </section>
    );
