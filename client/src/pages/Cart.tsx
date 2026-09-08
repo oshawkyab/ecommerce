@@ -24,7 +24,7 @@ const Cart = () => {
       quantity: el.id != null ? items[el.id] : 0
     }
   })
-  
+
 
   // handle change quantity
   const handleChangeQuantity = useCallback((payload: { id: number; quantity: number }) => {
@@ -44,7 +44,7 @@ const Cart = () => {
   return (
     <>
       {/* Headding */}
-      <Heading>Cart</Heading>
+      <Heading title="Cart" />
       <Loading status={loading} error={error}>
         {products.filter((el) => !!el.quantity).length === 0 && <p className="text-center py-4 mb-5">Your cart is empty</p>}
         <CartItemList changeQuantity={handleChangeQuantity} removeFromCart={handleRemoveFromCart} products={products} />

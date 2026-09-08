@@ -18,8 +18,7 @@ const {
 type CartItemProps = TProduct & { changeQuantity: (payload: { id: number; quantity: number }) => void; removeFromCart: (id: number) => void; };
 
 
-const CartItem = memo(({ id, title, price, image, quantity, max, changeQuantity, removeFromCart }: CartItemProps) => {
-  console.log("Rendering")
+const CartItem = memo(({ id, title, price, img, quantity, max, changeQuantity, removeFromCart }: CartItemProps) => {
   const renderOptions = Array(max).fill(0).map((_, idx) => {
     const optionValue = idx + 1;
     return (
@@ -40,7 +39,7 @@ const CartItem = memo(({ id, title, price, image, quantity, max, changeQuantity,
       <div className={product}>
         <div className={productImg}>
           <img
-            src={image}
+            src={img}
             alt={title}
           />
         </div>

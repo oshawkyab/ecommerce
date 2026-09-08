@@ -1,16 +1,19 @@
 /* eslint-disable react-hooks/set-state-in-effect */
-import Logo from "@assets/svg/cart.svg?react"
 import styles from "./styles.module.css";
-import { useAppSelector } from "@/store/hook";
-import { getQuantityCartSelector } from "@/store/selectors";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+interface IHeaderCounterProps {
+   totalQuantity: number;
+   svgIcon: React.ReactNode;
+   href: string
+}
+
 const { basketContainer, totalNum, pumpCartQuantity, basketCart } = styles;
 
-const HeaderBasket = () => {
+const HeaderCounter = ({ totalQuantity, svgIcon, href }: IHeaderCounterProps) => {
+
    const [isAnimate, setIsAnimate] = useState(false)
-   const totalQuantity = useAppSelector(getQuantityCartSelector);
    const quantityStyle = `${totalNum} ${isAnimate ? pumpCartQuantity : ""}`;
 
    useEffect(() => {
@@ -28,13 +31,13 @@ const HeaderBasket = () => {
    }, [totalQuantity])
 
    return (
-      <Link to={"/cart"} className={basketContainer}>
+      <Link to={href} className={basketContainer}>
          <div className={basketCart}>
-            <Logo title="basket icon" />
+            {svgIcon}
             <div className={quantityStyle}>{totalQuantity}</div>
          </div>
       </Link>
    );
 };
 
-export default HeaderBasket;
+export default HeaderCounter;

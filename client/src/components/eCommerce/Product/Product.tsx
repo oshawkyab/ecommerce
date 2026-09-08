@@ -1,14 +1,14 @@
 import { addToCart } from "@/store/cart/cartSlice";
 import { useAppDispatch } from "@/store/hook";
 import type { TProduct } from "@/utils/types";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { FiLoader } from "react-icons/fi";
 import Unlike from "@assets/svg/unlike.svg?react";
 import Like from "@assets/svg/like.svg?react";
 import actLikeToggle from "@/store/wishlist/act/actLikeToggle";
 import { Spinner } from "react-bootstrap";
 
-const Product = ({
+const Product = memo(({
    id,
    title,
    img,
@@ -51,7 +51,7 @@ const Product = ({
    // handle toggle like
    const likeToggleHandler = (id: number) => {
       if (isLoading) return; // Prevent multiple clicks while loading
-      
+
       setIsLoading(true);
       dispatch(actLikeToggle(id)).unwrap().finally(() => {
          setIsLoading(false);
@@ -138,6 +138,6 @@ const Product = ({
          </div>
       </div>
    );
-};
+});
 
 export default Product;

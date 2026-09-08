@@ -18,7 +18,7 @@ const Category = ({ title, img, prefix }: TCategory) => {
                />
 
                {/* Overlay */}
-               <div className="absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black/60 via-black/10 to-transparent p-5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+               <div className="absolute inset-0 flex items-end justify-center bg-linear-to-t from-black/60 via-black/10 to-transparent p-5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                   <span className="translate-y-3 rounded-full bg-white px-5 py-2 text-sm font-semibold text-gray-900 shadow-md transition-transform duration-300 group-hover:translate-y-0">
                      Shop Now
                   </span>

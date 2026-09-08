@@ -23,7 +23,7 @@ const Products = () => {
       quantity: el.id !== undefined ? (cartItems[el.id] ?? 0) : 0,
       isLiked: el.id !== undefined && wishlistItemsIds.includes(el.id),
    }));
-   
+
    const dispatch = useAppDispatch();
 
    useEffect(() => {
@@ -39,7 +39,7 @@ const Products = () => {
    return (
       <section className="container mx-auto px-4">
          <Loading status={loading} error={error}>
-            <Heading><span className="uppercase">{prefix} </span> Products</Heading>
+            <Heading title={`${prefix?.toUpperCase()} Products`} />
             <GridList
                records={productsFullInfo}
                renderItem={(record) => <Product key={record.id} {...record} />}

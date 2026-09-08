@@ -23,11 +23,11 @@ const Categories = () => {
    return (
       <section className="container mx-auto">
          <Loading status={loading} error={error}>
-            <Heading>Categories</Heading>
-            <GridList
-               records={records}
-               renderItem={(record) => <Category key={record.id} {...record} />}
-            />
+            <Heading title="Categories" />
+               <GridList
+                  records={records}
+                  renderItem={(record) => <Category key={record.id} {...record} />}
+               />
          </Loading>
       </section>
    );

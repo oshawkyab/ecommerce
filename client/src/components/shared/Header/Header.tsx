@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { HeaderBasket } from "@/components/eCommerce";
-import HeaderWishlist from "@/components/eCommerce/HeaderWishlist/HeaderWishlist";
+import HeaderRightBar from "./HeaderRightBar/HeaderRightBar";
 
 const Header = () => {
    const [isOpen, setIsOpen] = useState(false);
@@ -20,6 +19,8 @@ const Header = () => {
          <div className="mb-3 flex items-center justify-between">
             {/* Logo */}
             <NavLink to="/" className="group">
+
+               {/* Left-Side */}
                <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">
                   our
                   <span className="ml-1 text-cyan-500 transition-colors group-hover:text-cyan-600">
@@ -28,12 +29,9 @@ const Header = () => {
                </h1>
             </NavLink>
 
-            <div className="flex items-center gap-3">
-               {/* wishlist */}
-               <HeaderWishlist />
-               {/* Basket */}
-               <HeaderBasket />
-            </div>
+            {/* Render Wishlist and Cart */}
+            <HeaderRightBar />
+
          </div>
 
          {/* Navbar */}
