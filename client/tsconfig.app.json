@@ -14,6 +14,13 @@
     "paths": {
       "@/*": ["./src/*"],
       "@assets/*": ["./src/assets/*"],
+      "@components/*": ["./src/components/*"],
+      "@store/*": ["./src/store"],
+      "@utils/*": ["./src/utils"],
+      "@pages/*": ["./src/pages"],
+      "@styles/*": ["./src/styles"],
+      "@routes/*": ["./src/routes"],
+      "@hooks/*": ["./src/hooks"]
     },
 
     /* Bundler mode */

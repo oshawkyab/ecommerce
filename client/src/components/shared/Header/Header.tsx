@@ -22,9 +22,9 @@ const Header = () => {
 
                {/* Left-Side */}
                <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">
-                  our
-                  <span className="ml-1 text-cyan-500 transition-colors group-hover:text-cyan-600">
-                     Ecom
+                  Our 
+                  <span className="ml-2 text-cyan-500 transition-colors group-hover:text-cyan-600">
+                     eCom
                   </span>
                </h1>
             </NavLink>

@@ -1,4 +1,4 @@
-import { HeaderCounter } from '@/components/eCommerce'
+import { HeaderCounter } from '@components/eCommerce'
 import { useAppSelector } from '@/store/hook'
 import { getQuantityCartSelector, getWishlistItemsNumber } from '@/store/selectors'
 import CartLogo from "@assets/svg/cart.svg?react"
