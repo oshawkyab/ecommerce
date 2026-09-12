@@ -56,7 +56,7 @@ const CartItem = memo(({ id, title, price, img, quantity, max, changeQuantity, r
       </div>
 
       <div className={cartItemSelection}>
-        <span className={quantityLabel}>Quantity = {quantity}</span>
+        <span className={quantityLabel}>Quantity</span>
 
         <Form.Select aria-label="Product quantity" value={quantity} onChange={changeQuantityHandler}>
           {renderOptions}

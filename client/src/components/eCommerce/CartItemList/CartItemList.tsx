@@ -9,7 +9,7 @@ type cartItemListProps = {
 const CartItemList = ({ products, changeQuantity, removeFromCart }: cartItemListProps) => {
    const renderList = products.filter((el) => !!el.quantity).map((el) => <CartItem changeQuantity={changeQuantity} removeFromCart={removeFromCart} key={el.id} {...el} />)
    return (
-      <div>{renderList}</div>
+      <div className="w-full">{renderList}</div>
    )
 }
 

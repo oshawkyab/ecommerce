@@ -8,7 +8,7 @@ const Products = () => {
 
    return (
       <section className="container mx-auto px-4">
-         <Loading status={loading} error={error}>
+         <Loading type="products" status={loading} error={error}>
             <Heading title={`${prefix?.toUpperCase()} Products`} />
             <GridList
                records={productsFullInfo}

@@ -3,15 +3,16 @@ import { lazy, Suspense } from "react"
 // layouts
 const MainLayout = lazy(() => import('@/layouts/MainLayout/MainLayout'))
 // pages
-const AboutUs = lazy(() => import('@pages/AboutUs'))
-const Categories = lazy(() => import('@pages/Categories'))
-const Home = lazy(() => import('@pages/Home'))
-const Login = lazy(() => import('@pages/Login'))
-const Register = lazy(() => import('@pages/Register'))
-const Error = lazy(() => import('@pages/Error'))
-const Wishlist = lazy(() => import('@pages/Wishlist'))
-const Cart = lazy(() => import('@pages/Cart'))
-const Products = lazy(() => import('@pages/Products'))
+import Error from "@/pages/Error"
+const AboutUs = lazy(() => import('@/pages/AboutUs'))
+const Categories = lazy(() => import('@/pages/Categories'))
+const Home = lazy(() => import('@/pages/Home'))
+const Login = lazy(() => import('@/pages/Login'))
+const Register = lazy(() => import('@/pages/Register'))
+
+const Wishlist = lazy(() => import('@/pages/Wishlist'))
+const Cart = lazy(() => import('@/pages/Cart'))
+const Products = lazy(() => import('@/pages/Products'))
 
 
 

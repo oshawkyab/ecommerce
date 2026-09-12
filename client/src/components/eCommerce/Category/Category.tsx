@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Category = ({ title, img, prefix }: TCategory) => {
    return (
-      <div className="scale-75">
+      <div>
          <Link
             to={`/products/${prefix}`}
             className="group block"

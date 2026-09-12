@@ -7,7 +7,7 @@ const Categories = () => {
 
    return (
       <section className="container mx-auto">
-         <Loading status={loading} error={error}>
+         <Loading type="categories" status={loading} error={error}>
             <Heading title="Categories" />
             <GridList
                records={records}

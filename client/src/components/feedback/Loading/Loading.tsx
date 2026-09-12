@@ -1,15 +1,32 @@
 import type { TError, TLoading } from "@/utils/types"
+import CategoriesSkeleton from "./skeletons/CategoriesSkeleton/CategoriesSkeleton";
+import CartSkeleton from "./skeletons/CartSkeleton/CartSkeleton";
+import ProductsSkeleton from "./skeletons/ProductsSkeleton/ProductsSkeleton";
+
+
+// handle for skeleton types
+const skeletonTypes = {
+   cart: CartSkeleton,
+   categories: CategoriesSkeleton,
+   products: ProductsSkeleton
+}
 
 type LoadingProps = {
    status: TLoading;
    error: TError;
-   children: React.ReactNode
+   children: React.ReactNode;
+   type?: keyof typeof skeletonTypes
 }
-const Loading = ({ children, error, status }: LoadingProps) => {
+const Loading = ({ children, error, status, type = "categories" }: LoadingProps) => {
+
+   const SkeletonComponent = skeletonTypes[type]
+
+   console.log(SkeletonComponent)
+ 
 
    if (status === "pending") {
       return (
-         <p>Loading please wait...</p>
+        <SkeletonComponent />
       )
    }
 
