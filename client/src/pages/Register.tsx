@@ -1,35 +1,17 @@
 import { Heading } from "@/components/eCommerce"
 import Input from "@/components/forms/Input/Input"
-import useChekEmailAvailability from "@/hooks/useChekEmailAvailability"
-import { signUpSchema, type TSignUpFields } from "@/valiations"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { Button, Col, Form, Row } from "react-bootstrap"
-import { useForm, type SubmitHandler } from "react-hook-form"
+import useRegister from "@/hooks/useRegister"
+import { Button, Col, Form, Row, Spinner } from "react-bootstrap"
+import { Navigate } from "react-router-dom"
+
 
 
 const Register = () => {
-  const { register, trigger, handleSubmit, getFieldState, formState: { errors } } = useForm<TSignUpFields>({ mode: "onBlur", resolver: zodResolver(signUpSchema) })
 
-  const { checkEmailAvailability, resetEmailAvailability, emailAvailabilityStatus, enterdEmail } = useChekEmailAvailability()
+  const { loading, error, accessToken, registerSubmit, register, errors, handleSubmit, emailAvailabilityStatus, onBlurEmailAddress } = useRegister()
 
-  const registerSubmit: SubmitHandler<TSignUpFields> = (data) => {
-    console.log(data)
-  }
-
-  const onBlurEmailAddress = async (e: React.FocusEvent<HTMLInputElement>) => {
-    await trigger("email")
-    const value = e.target.value
-    const { invalid, isDirty } = getFieldState("email")
-
-    if (isDirty && !invalid && enterdEmail !== value) {
-      // checking
-      checkEmailAvailability(value);
-    }
-
-    if (enterdEmail && invalid) {
-      resetEmailAvailability()
-    }
-
+  if (accessToken) {
+    return <Navigate to={"/"} />
   }
 
   return (
@@ -85,9 +67,16 @@ const Register = () => {
               variant="info"
               type="submit"
               style={{ color: "white" }}
+              disabled={emailAvailabilityStatus === "checking" || loading === "pending"}
             >
-              Submit
+              {loading === "pending" ? <>
+                <Spinner animation="border" size="sm" /> Loading...
+              </> : "submit"}
             </Button>
+
+            {error && (
+              <p className="text-sm text-red-800">{error}</p>
+            )}
 
           </Form>
 

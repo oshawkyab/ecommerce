@@ -18,15 +18,11 @@ type LoadingProps = {
    type?: keyof typeof skeletonTypes
 }
 const Loading = ({ children, error, status, type = "categories" }: LoadingProps) => {
-
    const SkeletonComponent = skeletonTypes[type]
-
-   console.log(SkeletonComponent)
- 
 
    if (status === "pending") {
       return (
-        <SkeletonComponent />
+         <SkeletonComponent />
       )
    }
 

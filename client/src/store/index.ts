@@ -8,32 +8,43 @@ import categories from "./categories/CategoriesSlice"
 import products from "./products/productSlice"
 import cart from "./cart/cartSlice"
 import wishlist from "./wishlist/wishlistSlice"
+import auth from "./auth/authSlice"
 
+// root persist
+const rootPersistConfig = {
+   key: 'root',
+   storage: storage && (storage as any).default ? (storage as any).default : storage,
+   whitelist: ["cart", "auth"]
+}
 // Configration for cart
 const cartPersistConfig = {
    key: 'cart',
    storage: storage && (storage as any).default ? (storage as any).default : storage,
    whitelist: ["items"] // items, infoForProducts
 };
-// configration for wishlist
-const wishlistPersistConfig = {
-   key: 'wishlist',
+
+// configration for auth
+const authPersistConfig = {
+   key: 'auth',
    storage: storage && (storage as any).default ? (storage as any).default : storage,
-   whitelist: ["itemsId"] // itemsId
+   whitelist: ["accessToken", "user"],
 };
 
 // combineReducers === reducers in configration store
 const rootReducer = combineReducers({
+   auth: persistReducer(authPersistConfig, auth),
    categories,
    products,
    cart: persistReducer(cartPersistConfig, cart),
-   wishlist: persistReducer(wishlistPersistConfig, wishlist)
+   wishlist
 })
+
+const persistedReducer = persistReducer(rootPersistConfig, rootReducer)
 
 
 // Default configration 
 export const store = configureStore({
-   reducer: rootReducer,
+   reducer: persistedReducer,
    // Serlizable Problem
    middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({

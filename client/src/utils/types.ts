@@ -19,3 +19,10 @@ export type TProduct = {
    quantity?: number;
    isLiked?: boolean;
 }
+
+export type TOrderItem = {
+   id: number;
+   userId: number;
+   items: TProduct[]
+   subTotal: number
+}

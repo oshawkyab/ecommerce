@@ -1,42 +1,55 @@
-/* eslint-disable react-hooks/set-state-in-effect */
-import styles from "./styles.module.css";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-interface IHeaderCounterProps {
+import styles from "./styles.module.css";
+
+type HeaderCounterProps = {
    totalQuantity: number;
    svgIcon: React.ReactNode;
-   href: string
-}
+   title: string;
+   to: string;
+};
 
-const { basketContainer, totalNum, pumpCartQuantity, basketCart } = styles;
+const { container, totalNum, pumpAnimate, iconWrapper } = styles;
 
-const HeaderCounter = ({ totalQuantity, svgIcon, href }: IHeaderCounterProps) => {
-
-   const [isAnimate, setIsAnimate] = useState(false)
-   const quantityStyle = `${totalNum} ${isAnimate ? pumpCartQuantity : ""}`;
+const HeaderCounter = ({
+   totalQuantity,
+   svgIcon,
+   title,
+   to,
+}: HeaderCounterProps) => {
+   const navigate = useNavigate();
+   const [isAnimate, setIsAnimate] = useState(false);
+   const quantityStyle = `${totalNum} ${isAnimate ? pumpAnimate : ""}`;
 
    useEffect(() => {
-      if (!totalQuantity) return
+      if (!totalQuantity) {
+         return;
+      }
 
-      setIsAnimate(true)
-
-      const timer = setTimeout(() => {
-         setIsAnimate(false)
-      }, 300)
+      const animationStart = setTimeout(() => {
+         setIsAnimate(true);
+      }, 0);
+      const animationEnd = setTimeout(() => {
+         setIsAnimate(false);
+      }, 300);
 
       return () => {
-         clearTimeout(timer)
-      }
-   }, [totalQuantity])
+         clearTimeout(animationStart);
+         clearTimeout(animationEnd);
+      };
+   }, [totalQuantity]);
 
    return (
-      <Link to={href} className={basketContainer}>
-         <div className={basketCart}>
+      <div className={container} onClick={() => navigate(to)}>
+         <div className={iconWrapper}>
             {svgIcon}
-            <div className={quantityStyle}>{totalQuantity}</div>
+            {totalQuantity > 0 && (
+               <div className={quantityStyle}>{totalQuantity}</div>
+            )}
          </div>
-      </Link>
+         <h3>{title}</h3>
+      </div>
    );
 };
 

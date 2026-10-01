@@ -18,7 +18,6 @@ const useChekEmailAvailability = () => {
             setEmailAvailabilityStatus("notAvailable");
          }
       } catch (error) {
-         console.log(error)
          setEmailAvailabilityStatus("faild");
       }
    };

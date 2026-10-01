@@ -1,21 +1,34 @@
-import { HeaderCounter } from '@components/eCommerce'
-import { useAppSelector } from '@/store/hook'
-import { getQuantityCartSelector, getWishlistItemsNumber } from '@/store/selectors'
-import CartLogo from "@assets/svg/cart.svg?react"
-import WishlistLogo from "@assets/svg/wishlist.svg?react"
+import { useAppSelector } from "@/store/hook"; 
+import { HeaderCounter } from "@/components/eCommerce";
+import WishlistIcon from "@assets/svg/wishlist.svg?react";
+import CartIcon from "@assets/svg/cart.svg?react";
+import styles from "./styles.module.css";
+import { getQuantityCartSelector } from "@/store/selectors";
+
+const { headerLeftBar } = styles;
 
 const HeaderRightBar = () => {
-   const wishlistTotalQuantity = useAppSelector(getWishlistItemsNumber)
-   const cartTotalQuantity = useAppSelector(getQuantityCartSelector)
-   return (
-      <div className="flex items-center gap-4">
-         {/* wishlist */}
-         <HeaderCounter href="/wishlist" svgIcon={<WishlistLogo />} totalQuantity={wishlistTotalQuantity} />
-         <span className="w-0.5 bg-gray-800 h-8"></span>
-         {/* Basket */}
-         <HeaderCounter href="/cart" svgIcon={<CartLogo />} totalQuantity={cartTotalQuantity} />
-      </div>
-   )
-}
+  const wishlistTotalQuantity = useAppSelector(
+    (state) => state.wishlist.itemsId.length
+  );
+  const cartTotalQuantity = useAppSelector(getQuantityCartSelector);
 
-export default HeaderRightBar
+  return (
+    <div className={headerLeftBar}>
+      <HeaderCounter
+        to="wishlist"
+        title="Wishlist"
+        totalQuantity={wishlistTotalQuantity}
+        svgIcon={<WishlistIcon title="wishlist" />}
+      />
+      <HeaderCounter
+        to="cart"
+        title="Cart"
+        totalQuantity={cartTotalQuantity}
+        svgIcon={<CartIcon title="cart" />}
+      />
+    </div>
+  );
+};
+
+export default HeaderRightBar;

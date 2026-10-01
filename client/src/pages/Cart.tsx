@@ -6,7 +6,7 @@ import useCart from "@/hooks/useCart"
 
 const Cart = () => {
 
-  const { totalPrice, handleRemoveFromCart, handleChangeQuantity, products, error, loading } = useCart()
+  const { totalPrice, handleRemoveFromCart, handleChangeQuantity, products, error, loading, userAccessToken } = useCart()
   return (
     <>
       {/* Headding */}
@@ -15,7 +15,7 @@ const Cart = () => {
         {products.filter((el) => !!el.quantity).length === 0 && <p className="text-center py-4 mb-5">Your cart is empty</p>}
         <CartItemList changeQuantity={handleChangeQuantity} removeFromCart={handleRemoveFromCart} products={products} />
         {/* total price */}
-        <CartSubtotalPrice total={totalPrice} />
+        <CartSubtotalPrice userAccessToken={userAccessToken} total={totalPrice} />
       </Loading>
     </>
   )

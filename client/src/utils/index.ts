@@ -8,7 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export const axiosErrorHandler = (error: unknown) => {
   if (axios.isAxiosError(error)) {
-    return error.message
+    return error.response?.data || error.message
   } else {
     return "An unexpected error"
   }

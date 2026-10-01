@@ -35,7 +35,6 @@ const cartSlice = createSlice({
       changeQuantity: (state, action) => {
          const { id, quantity } = action.payload;
          state.items[id] = quantity;
-         console.log(`Quantity for product ID ${id} changed to ${quantity}`);
       },
       cartItemRemove: (state, action) => {
          delete state.items[action.payload];

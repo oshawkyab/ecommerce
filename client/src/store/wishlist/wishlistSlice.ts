@@ -1,69 +1,78 @@
 import { createSlice } from "@reduxjs/toolkit";
 import actLikeToggle from "./act/actLikeToggle";
-import actGetProductsLiked from "./act/actGetProductsLiked";
+import actGetWishlist from "./act/actGetWishlist";
+import { logout } from "../auth/authSlice";
 import type { TLoading, TProduct } from "@/utils/types";
 
-interface IWishlistState {
+interface IWishlist {
    itemsId: number[];
-   loading: TLoading
-   wishlistFullInfo: TProduct[]; // Full product info for items in the wishlist
-   error: null | string
+   productsFullInfo: TProduct[];
+   error: null | string;
+   loading: TLoading;
 }
 
-const initialState: IWishlistState = {
+const initialState: IWishlist = {
    itemsId: [],
-   wishlistFullInfo: [],
+   productsFullInfo: [],
+   error: null,
    loading: "idle",
-   error: null
-}
+};
 
 const wishlistSlice = createSlice({
    name: "wishlist",
    initialState,
    reducers: {
-      wishlistCleanUp: (state) => {
-         state.wishlistFullInfo = []
-      }
+      cleanWishlistProductsFullInfo: (state) => {
+         state.productsFullInfo = [];
+      },
    },
    extraReducers: (builder) => {
       builder.addCase(actLikeToggle.pending, (state) => {
-         state.error = null
-      })
+         state.error = null;
+      });
       builder.addCase(actLikeToggle.fulfilled, (state, action) => {
-         const { type, id } = action.payload
-         if (type === "add") {
-            state.itemsId.push(id)
+         if (action.payload.type === "add") {
+            state.itemsId.push(action.payload.id);
          } else {
-            state.itemsId = state.itemsId.filter(itemId => itemId !== id)
-            state.wishlistFullInfo = state.wishlistFullInfo.filter(product => product.id !== id)
+            state.itemsId = state.itemsId.filter((el) => el !== action.payload.id);
+            state.productsFullInfo = state.productsFullInfo.filter(
+               (el) => el.id !== action.payload.id
+            );
          }
-      })
+      });
       builder.addCase(actLikeToggle.rejected, (state, action) => {
-         if (action.payload && typeof action.payload === "string") {
-            state.error = action.payload
+         if (typeof action.payload === "string" && action.payload) {
+            state.error = action.payload;
          }
-      })
-
-      // get wishlist products
-      builder.addCase(actGetProductsLiked.pending, (state) => {
-         state.error = null
-         state.loading = "pending"
-      })
-      builder.addCase(actGetProductsLiked.fulfilled, (state, action) => {
-
-         state.wishlistFullInfo = action.payload
-         console.log(state.wishlistFullInfo, "wishlistFullInfo")
-         state.loading = "succeeded"
-
-      })
-      builder.addCase(actGetProductsLiked.rejected, (state, action) => {
-         if (action.payload && typeof action.payload === "string") {
-            state.error = action.payload
-            state.loading = "failed"
+      });
+      // get wishlist items
+      builder.addCase(actGetWishlist.pending, (state) => {
+         state.loading = "pending";
+         state.error = null;
+      });
+      builder.addCase(actGetWishlist.fulfilled, (state, action) => {
+         state.loading = "succeeded";
+         if (action.payload.dataType === "ProductsFullInfo") {
+            state.productsFullInfo = action.payload.data as TProduct[];
+         } else if (action.payload.dataType === "productsIds") {
+            state.itemsId = action.payload.data as number[];
          }
-      })
-   }
-})
+      });
+      builder.addCase(actGetWishlist.rejected, (state, action) => {
+         state.loading = "failed";
+         if (typeof action.payload === "string" && action.payload) {
+            state.error = action.payload;
+         }
+      });
 
-export const { wishlistCleanUp } = wishlistSlice.actions;
+      // when logout reset
+      builder.addCase(logout, (state) => {
+         state.itemsId = [];
+         state.productsFullInfo = [];
+      });
+   },
+});
+
+export { actLikeToggle, actGetWishlist };
+export const { cleanWishlistProductsFullInfo } = wishlistSlice.actions;
 export default wishlistSlice.reducer;

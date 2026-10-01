@@ -7,6 +7,8 @@ const useCart = () => {
    const dispatch = useAppDispatch()
    const { items, loading, error, productsFullInfo } = useAppSelector((state) => state.cart)
 
+   const userAccessToken = useAppSelector((state) => state.auth.accessToken)
+
    useEffect(() => {
       const promise = dispatch(actGetProductsById())
 
@@ -39,7 +41,7 @@ const useCart = () => {
       return acc + productPrice
    }, 0)
 
-   return { totalPrice, handleRemoveFromCart, handleChangeQuantity, products, error, loading }
+   return { totalPrice, handleRemoveFromCart, handleChangeQuantity, products, error, loading, userAccessToken }
 }
 
 export default useCart

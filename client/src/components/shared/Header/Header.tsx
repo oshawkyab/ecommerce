@@ -1,9 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import HeaderRightBar from "./HeaderRightBar/HeaderRightBar";
+import { useAppDispatch, useAppSelector } from "@/store/hook";
+import { Nav, NavDropdown } from "react-bootstrap";
+import { logout } from "@/store/auth/authSlice";
+import { actGetWishlist } from "@/store/wishlist/wishlistSlice";
 
 const Header = () => {
    const [isOpen, setIsOpen] = useState(false);
+
+   const { accessToken, user } = useAppSelector(state => state.auth)
+
+   const dispatch = useAppDispatch()
+
+   useEffect(() => {
+      if (accessToken) {
+         dispatch(actGetWishlist("ProductIds"))
+
+      }
+   }, [dispatch, accessToken])
 
    const navLinkClass = ({ isActive }: { isActive: boolean }) =>
       `rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-300
@@ -22,7 +37,7 @@ const Header = () => {
 
                {/* Left-Side */}
                <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">
-                  Our 
+                  Our
                   <span className="ml-2 text-cyan-500 transition-colors group-hover:text-cyan-600">
                      eCom
                   </span>
@@ -80,26 +95,39 @@ const Header = () => {
                </div>
 
                {/* Authentication */}
-               <div className="hidden items-center gap-2 lg:flex">
-                  <NavLink
-                     to="/login"
-                     className={({ isActive }) =>
-                        `rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-300 ${isActive
-                           ? "bg-gray-100 text-gray-900"
-                           : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-                        }`
-                     }
+               {!accessToken ? (
+                  <div className="flex items-center gap-4">
+                     <Nav.Link as={NavLink} to="login">
+                        Login
+                     </Nav.Link>
+                     <Nav.Link as={NavLink} to="register">
+                        Register
+                     </Nav.Link>
+                  </div>
+               ) : (
+                  <NavDropdown
+                     title={`Welcome: ${user?.firstName} ${user?.lastName}`}
+                     id="basic-nav-dropdown"
                   >
-                     Login
-                  </NavLink>
+                     <NavDropdown.Item as={NavLink} to="profile">
+                        Profile
+                     </NavDropdown.Item>
+                     <NavDropdown.Item>Orders</NavDropdown.Item>
+                     <NavDropdown.Divider />
+                     <NavDropdown.Item
+                        as={NavLink}
+                        to="/login"
+                        onClick={() => {
+                           dispatch(logout())
+                        }}
+                        className="w-full bg-transparent text-danger"
+                     >
+                        Logout
+                     </NavDropdown.Item>
+                  </NavDropdown>
+               )}
 
-                  <NavLink
-                     to="/register"
-                     className="rounded-xl bg-cyan-500 px-5 py-2.5 text-sm font-semibold text-white shadow-sm shadow-cyan-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-cyan-600 hover:shadow-md hover:shadow-cyan-500/25"
-                  >
-                     Register
-                  </NavLink>
-               </div>
+
             </div>
 
             {/* Mobile Navigation */}
@@ -135,28 +163,6 @@ const Header = () => {
                      About
                   </NavLink>
 
-                  <div className="my-2 h-px bg-gray-100" />
-
-                  <NavLink
-                     to="/login"
-                     onClick={() => setIsOpen(false)}
-                     className={({ isActive }) =>
-                        `rounded-xl px-4 py-2.5 text-sm font-semibold transition-all ${isActive
-                           ? "bg-gray-900 text-white"
-                           : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
-                        }`
-                     }
-                  >
-                     Login
-                  </NavLink>
-
-                  <NavLink
-                     to="/register"
-                     onClick={() => setIsOpen(false)}
-                     className="rounded-xl bg-cyan-500 px-4 py-2.5 text-center text-sm font-semibold text-white transition-all hover:bg-cyan-600"
-                  >
-                     Register
-                  </NavLink>
                </div>
             </div>
          </nav>

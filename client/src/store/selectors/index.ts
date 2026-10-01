@@ -4,7 +4,6 @@ import type { RootState } from "../index"
 const getQuantityCartSelector = createSelector(
    (state: RootState) => state.cart.items,
    (items) => {
-      console.log(items)
       return Object.values(items).filter((el) => {
          return typeof el === "number" && !isNaN(el) && el > 0
       } ).reduce((acc, current) => {

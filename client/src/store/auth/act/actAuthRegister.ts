@@ -1,0 +1,26 @@
+import { axiosErrorHandler } from "@/utils";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
+type TFormData = {
+   firstName: string;
+   lastName: string;
+   password: string;
+   email: string
+}
+const actAuthRegister = createAsyncThunk(
+   "auth/actAuthRegister",
+   async (formData: TFormData, thunkAPI) => {
+      const { rejectWithValue } = thunkAPI
+
+      try {
+
+         const response = await axios.post("/register", formData)
+         return response.data
+
+      } catch (error) {
+         return rejectWithValue(axiosErrorHandler(error))
+      }
+   }
+)
+
+export default actAuthRegister

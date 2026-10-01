@@ -2,14 +2,10 @@ import { Form } from "react-bootstrap";
 import styles from "./styles.module.css";
 import type { TProduct } from "@/utils/types";
 import { memo } from "react";
+import ProductInfo from "../ProductInfo/ProductInfo";
 
 const {
   cartItem,
-  product,
-  productImg,
-  productInfo,
-  productTitle,
-  productPrice,
   removeBtn,
   cartItemSelection,
   quantityLabel,
@@ -36,24 +32,12 @@ const CartItem = memo(({ id, title, price, img, quantity, max, changeQuantity, r
 
   return (
     <div className={cartItem}>
-      <div className={product}>
-        <div className={productImg}>
-          <img
-            src={img}
-            alt={title}
-          />
-        </div>
+      <ProductInfo price={Number(price)} direction="column" title={title} img={img as string} >
 
-        <div className={productInfo}>
-          <h2 className={productTitle}>{title}</h2>
-
-          <h3 className={productPrice}>{price} EGP</h3>
-
-          <button className={`${removeBtn} btn btn-danger`} type="button" onClick={() => id && removeFromCart(id)}>
-            Remove
-          </button>
-        </div>
-      </div>
+        <button className={`${removeBtn} btn btn-danger`} type="button" onClick={() => id && removeFromCart(id)}>
+          Remove
+        </button>
+      </ProductInfo>
 
       <div className={cartItemSelection}>
         <span className={quantityLabel}>Quantity</span>
